@@ -1,0 +1,68 @@
+﻿@model Eshop.ViewModels.ComparsionViewModel
+
+<div class="wallpaper-container">
+    <img src="~/Images/Icons/banner.jpg" alt="wallpaper">
+    <div class="wallpaper-heading">
+        <h2>Products for compare</h2>
+        <h4>Home/Compare List</h4>
+    </div>
+</div>
+
+<div style="text-align:center;margin-top:2rem;text-decoration:underline;text-underline-offset:0.3rem;">
+    <h2>Choose Product to compare</h2>
+</div>
+
+<div style="text-align:center;" class="product-comparison-container">
+    <table>
+        <thead>
+            <tr>
+                <th class="text-left">Product</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th style="color:black;">Actions</th>
+            </tr>
+        </thead>
+
+        @foreach (product item in Model.MyList)
+        {
+            <tr>
+                <td data-label="Product" class="td-left">
+                    <img class="admin-product-img" src="@Url.Content("~/Images/" + item.image1)" alt="">
+                </td>
+                <td data-label="Name">
+                    <span class="span-color">@item.Name</span>
+                </td>
+                <td data-label="Price" class="span-color-1">
+                    <span>@item.price &euro;</span>
+                </td>
+                <td data-label="Stock" class="span-color-1">
+                    <span>@item.stock</span>
+                </td>
+                <td>
+                    <div class="add-product-to-compare">
+                        @if (Model.id2 == 0)
+                        {
+                            @Html.ActionLink("Compare", "ComparisonTable", "Home", new { id1 = Model.id1, id2 = item.id, @class = "add-product-to-compare" }, null)
+                        }
+                        else if (Model.id3 == 0 && Model.id2 != 0)
+                        {
+                            @Html.ActionLink("Compare", "ComparisonTable", "Home", new { id1 = Model.id1, id2 = Model.id2, id3 = item.id }, null)
+                        }
+                        else if (Model.id4 == 0 && Model.id2 != 0 && Model.id3 != 0)
+                        {
+                            @Html.ActionLink("Compare", "ComparisonTable", "Home", new { id1 = Model.id1, id2 = Model.id2, id3 = Model.id3, id4 = item.id }, null)
+                        }
+
+                    </div>
+
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+@section scripts{
+    <script src="~/Scripts/Navbar Toggle.js"></script>
+    <script src="~/Scripts/LiveSearch.js"></script>
+}
